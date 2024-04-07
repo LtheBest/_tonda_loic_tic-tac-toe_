@@ -1,44 +1,35 @@
-# Tic-Tac-Toe TP
-Le TP est à rendre au plus tard **lundi 8 avril 2024, minuit**, par mail en signalant votre nom, prénom et le lien du repository public sur lequel se trouve vos livrables, le mail d'envoi **et** l'historique des commits faisant foi.
+workflow git 
+ -une branche principal main 
+ pour le deploiement en prod
+ -une branche preprod 
+ pour les fusions des fonctionalités et les tests avant la prod
+ -une branche dev 
+ pour developper nos fonctionaliter 
 
-Il vous est possible de vous entre-aider mais votre rendu est **personnel** sauf mention contraire expresse pour les situations identifiées en amont.
 
-## Instructions
+ #Avantages :
 
-### Préparer son environnement
-- A partir du docker-compose disponible sur le repository [docker-gitlab-jenkins](https://github.com/June-Ruth/docker-gitlab-jenkins)
+-Isolation des fonctionnalités : Chaque fonctionnalité ou correction de bogue peut être développée dans une branche distincte, ce qui permet de travailler sur des fonctionnalités sans perturber le code principal.
 
-### Récupérer le projet en local
-- Clôner le projet en local
-- Mettre en place le projet sur le GitLab local avec le nom formaté selon le schéma suivant : **_nom_prenom_tic-tac-toe_**
+-Stabilité du code principal : La branche "main" (ou "master") représente le code de production stable. En travaillant dans des branches séparées et en fusionnant uniquement les modifications testées et approuvées dans "main", on maintient la stabilité du code en production.
 
-### Création d'une pipeline d'intégration et de déploiement
-La pipeline doit être formatée selon le schéma suivant : **_nom_prenom_tic-tac-toe_**
-#### Outils
-- La pipeline doit être éxécutée à partir de la plateforme d'intégration continue Jenkins
-#### Fréquence
-- La pipeline doit pouvoir être exécutée manuellement
-- La pipeline doit être exécutée à chaque action de push et de merge request
-##### Contenu
-- La pipeline doit exécuter les tests
-- Le stage de test doit mentionner le type de tests exéutés selon la pyramide des tests (soit dans son nom, soit dans la console lors de l'exécution)
-- La pipeline doit fournir un rapport de couverture Clover
-- La pipeline doit fournir les artefacts de distribution nécessaires au déploiement
+-Pré-production pour les tests : La branche "preprod" (ou "staging") est utilisée pour tester les nouvelles fonctionnalités avant qu'elles ne soient déployées en production. Cela permet de détecter les problèmes potentiels avant qu'ils n'affectent les utilisateurs finaux.
 
-### Correction des tests
-- Les tests non-validés par la pipeline doivent être corrigés afin d'être valides
+-Environnement de développement isolé : La branche "dev" (ou "develop") est utilisée pour intégrer les nouvelles fonctionnalités et les corrections de bogues avant qu'elles ne soient testées dans l'environnement de pré-production. Cela permet de garder l'environnement de développement isolé du code en production et de faciliter la collaboration entre les membres de l'équipe.
 
-## Livrables
-- Le code final sera rendu disponible sur un repository public
-- La branche principale (main) sera à jour de l'ensemble des modifications
-- Le code final devra conserver l'historique des branches et commits
-- Le README présentera le workflow Git choisi en expliquant ses avantages et/ou inconvénients
-- Le repository disposera d'un package spécifique pour les documents issus de la pipeline :
-  - le rapport de couverture Clover fourni lors du dernier cycle Jenkins (format .html)
-  - une copie (format .pdf) du dashboard principal de la **pipeline** sur Jenkins présentant au moins un cycle exécuté de manière automatique, les artefacts issue du build et le résumé de la couverture Clover
-  - une copie (format .pdf) des paramètres mis en place sur GitLab servant à l'intégration de Jenkins
- 
-## Attention
-- Les projets qui ne respectent pas les conventions de nommage ne seront pas évalués.
-- Les projets dont l'historique git n'est pas accessible ne seront pas évalués.
-- Les repository innaccessibles (adresse erronée, settings non-public) ne seront pas évaluées.
+-Facilite la collaboration : Chaque développeur peut travailler sur sa propre branche, ce qui réduit les conflits de fusion et facilite la collaboration sur des fonctionnalités distinctes.
+
+
+#Inconvénients :
+
+
+-Complexité accrue : La gestion de plusieurs branches peut devenir complexe, surtout lorsque plusieurs fonctionnalités sont développées simultanément et nécessitent des modifications dans des parties différentes du code.
+
+-Risque de divergence : Si les branches ne sont pas régulièrement fusionnées et synchronisées, cela peut entraîner des divergences entre les différentes branches, ce qui peut compliquer la fusion ultérieure des modifications.
+
+-Surcharge administrative : Le maintien de plusieurs branches nécessite une certaine surcharge administrative pour garantir que les modifications sont correctement intégrées et testées à chaque étape du processus.
+
+-Potentiel de retard dans les déploiements : Si le processus de test dans la branche "preprod" est long ou si des problèmes sont découverts tardivement, cela peut retarder les déploiements en production.
+
+-Besoin de coordination : Pour éviter les conflits et assurer une intégration harmonieuse, une coordination étroite entre les membres de l'équipe est nécessaire, ce qui peut être difficile dans les équipes largement distribuées ou très nombreuses.
+
