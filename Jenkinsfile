@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo('Building TP')
+                echo('Building TP test preprod')
                 sh 'npm install'
             }
         }
